@@ -1,56 +1,39 @@
-# CodeIgniter 4 Application Starter
+# Sistem Elektronik Arsip CI4
 
-## What is CodeIgniter?
+## Apa itu CI4_Arsip?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+Sistem Elektronik Arsip berbasis web merupakan aplikasi untuk menyimpan arsip file dalam administrasi sebuah instansi/organisasi. Aplikasi ini bisa diterapkan di Organisasi dan Instansi. Sistem dapat mengelola pengarsipan file dan menyimpan file di website dengan cepat,aman dan nyaman sehingga memudahkan dalam filtering maupun searching ketika file tersebut akan digunakan kembali oleh pengguna. [Demo Aplikasi](http://ci4_arsip.acengawahid.my.id).
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Cara Install
+## Clone Git
+1. Buka CMD/Shell/Terminal, CD path direktori yang diinginkan. (htdocs for xampp or www for laragon)
+2. Lakukan perintah :
+`git clone https://github.com/acengawahid/ci4_arsip.git`
+3. Lakukan perintah :
+`composer update --no-dev`
+Untuk menjalankan aplikasi, silahkan baca **User Guide CI4** [disini](http://codeigniter.com).
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+## Setting Env
+4. Atur konfigurasi file .env sesuai konfigurasi server & database masing-masing :
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+## Migrate Database
+5. Pada CMD/Shell/Terminal, Lakukan perintah :
+`php spark migrate`
 
-## Installation & updates
+## Jalankan Aplikasi
+5. Pada CMD/Shell/Terminal, Lakukan perintah :
+`php spark server`
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+5. Buka browser, masukkan url :
+`http://localhost:8080`
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
-
-## Repository Management
-
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+## CRUD Aplikasi
+1. Login user :
+level : admin
+level : kabid
+level : staff
 
 ## Server Requirements
-
 PHP version 7.2 or higher is required, with the following extensions installed: 
 
 - [intl](http://php.net/manual/en/intl.requirements.php)
