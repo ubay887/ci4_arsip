@@ -47,6 +47,7 @@ class Auth extends BaseController
                     'email' => $row->email,
                     'level' => $row->level,
                     'image' => $row->image,
+                    'id_dept' => $row->id_dept,
                 ];
                 session()->set($data);
                 return redirect()->to('/admin');

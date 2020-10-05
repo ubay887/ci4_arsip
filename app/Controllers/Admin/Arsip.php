@@ -24,6 +24,7 @@ class Arsip extends BaseController
             'arsip' => $this->ArsipModel->getAllData(),
             'category' => $this->CategoryModel->getAllData(),
             'departement' => $this->DepartementModel->getAllData(),
+            'count_arsip' => $this->ArsipModel->getCount(),
             'validation' => \Config\Services::validation()
         ];
         return view('admin/arsip', $data);
@@ -105,13 +106,18 @@ class Arsip extends BaseController
             if ($fileDoc->getError('file') == 4) {
                 $nameDoc = $this->request->getFile('oldFile');
             } else {
+                // Hapus foto
+                $arsip = $this->ArsipModel->getAllData($id);
+                if ($arsip['file'] != "") {
+                    unlink('assets/file/arsip/' . $arsip['file']);
+                }
                 $nameDoc = $fileDoc->getName();
                 $fileDoc->move('assets/file/arsip', $nameDoc);
             }
             $data = [
                 'id_arsip' => $id,
                 'id_category' => $this->request->getPost('id_category'),
-                'id_dept' => $this->request->getPost('id_dept'),
+                'id_dept' => session()->get('id_dept'),
                 'id_user' => session()->get('id_user'),
                 'no_arsip' => $this->request->getPost('no_arsip'),
                 'name_file' => $this->request->getPost('name_file'),
@@ -130,6 +136,9 @@ class Arsip extends BaseController
 
     public function delete($id)
     {
+        $arsip = $this->ArsipModel->getAllData($id);
+        unlink('assets/file/arsip/' . $arsip['file']);
+
         $this->ArsipModel->deleteData($id);
         session()->setFlashdata('message', 'Data has been deleted.');
         return redirect()->to('/admin/arsip');

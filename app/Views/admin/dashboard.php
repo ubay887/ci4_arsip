@@ -14,21 +14,21 @@
                         <p>Arsip</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-ios-people"></i>
+                        <i class="fa fa-copy"></i>
                     </div>
                     <a href="/admin/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-secondary">
+                <div class="small-box bg-light">
                     <div class="inner">
                         <h3><?= $count_dept; ?></h3>
 
                         <p>Departement</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-ios-people"></i>
+                        <i class="fa fa-university"></i>
                     </div>
                     <a href="/admin/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -42,21 +42,21 @@
                         <p>Category</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-ios-people"></i>
+                        <i class="fa fa-table"></i>
                     </div>
                     <a href="/admin/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-secondary">
+                <div class="small-box bg-light">
                     <div class="inner">
                         <h3><?= $count_user; ?></h3>
 
                         <p>Users</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-ios-people"></i>
+                        <i class="fa fa-user"></i>
                     </div>
                     <a href="/admin/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

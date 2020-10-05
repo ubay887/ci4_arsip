@@ -15,9 +15,6 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <a href="/"><b><?= $setting['name_web']; ?></b></a>
-        </div>
 
         <?= $this->renderSection('auth_content'); ?>
 

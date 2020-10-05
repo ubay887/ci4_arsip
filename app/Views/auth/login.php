@@ -1,6 +1,13 @@
 <?= $this->extend('layout/template_auth'); ?>
 <?= $this->section('auth_content'); ?>
+
 <div class="card">
+    <div class="login-logo">
+        <a href="/"><b><?= $setting['name_web']; ?></b></a>
+    </div>
+    <div class="card-header text-center">
+        <img src="/assets/img/<?= $setting['image']; ?>" height="80px" width="80px">
+    </div>
     <div class="card-body login-card-body">
         <p><?= session()->get('message'); ?></p>
         <p class="login-box-msg"><?php $errors = session()->getFlashdata('errors'); ?></p>

@@ -15,17 +15,20 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Table from <?= $title; ?></h3>
+
+                        <div class="card-tools">
+                            <button class="btn btn-outline-info btn-sm mb-2 px-3 shadow" title="Add Data" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-user-plus"></i></button>
+                            <!-- <a href="/admin/arsip/excel" class="btn btn-outline-success btn-sm mb-2 px-3 shadow" title="Export Excel"><i class="fa fa-file-excel"></i></a> -->
+                            <button class="btn btn-outline-secondary btn-sm mb-2 px-3 shadow" title="Print" onclick="window.print()"><i class="fa fa-print"></i></button>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-outline-info btn-sm mb-2 px-3 shadow" title="Add Data" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-user-plus"></i></button>
-                        <!-- <a href="/admin/arsip/excel" class="btn btn-outline-success btn-sm mb-2 px-3 shadow" title="Export Excel"><i class="fa fa-file-excel"></i></a> -->
-                        <button class="btn btn-outline-secondary btn-sm mb-2 px-3 shadow" title="Print" onclick="window.print()"><i class="fa fa-print"></i></button>
                         <table id="table1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th width="1px">No</th>
                                     <th width="50px">File</th>
-                                    <th width="100px">No Arsip</th>
+                                    <th width="130px">No Arsip</th>
                                     <th width="auto">Name</th>
                                     <th width="auto">Description</th>
                                     <th width="100px">Departement</th>
@@ -72,10 +75,9 @@
 <?php
 $file = ['name' => 'file', 'id' => 'file', 'type' => 'file', 'class' => 'custom-file-input'];
 $id_category = ['name' => 'id_category', 'id' => 'id_category', 'class' => 'form-control'];
-$id_dept = ['name' => 'id_dept', 'id' => 'id_dept', 'class' => 'form-control'];
-$no_arsip = ['name' => 'no_arsip', 'id' => 'no_arsip', 'class' => 'form-control', 'required' => ''];
+$no_arsip = ['name' => 'no_arsip', 'id' => 'no_arsip', 'class' => 'form-control', 'readonly' => ''];
 $name_file = ['name' => 'name_file', 'id' => 'name_file', 'class' => 'form-control', 'required' => ''];
-$description = ['name' => 'description', 'id' => 'description', 'class' => 'form-control', 'required' => ''];
+$description = ['name' => 'description', 'id' => 'description', 'type' => 'textarea', 'class' => 'form-control', 'rows' => '3', 'required' => ''];
 ?>
 
 
@@ -91,6 +93,16 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
             <div class="modal-body card-info card-outline">
                 <?= form_open_multipart('/admin/arsip/create'); ?>
                 <?= csrf_field(); ?>
+                <?php $count = $count_arsip + 1;
+                $no_arsip = $count . '/' . $setting['name_web'] . '/' . date('m') . '/' . date('Y');
+                ?>
+                <input type="hidden" name="id_dept" id="id_dept" value="<?= session()->get('id_dept'); ?>">
+                <div class="form-group row mb-1">
+                    <label for="no_arsip" class="col-sm-2 col-form-label">Nomor</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="no_arsip" class="form-control" value="<?= $no_arsip; ?>" readonly>
+                    </div>
+                </div>
                 <div class="form-group row mb-1">
                     <?= form_label('File', 'file', ['class' => 'col-sm-2 col-form-label', 'for' => 'file']); ?>
                     <div class="col-sm-10">
@@ -104,12 +116,6 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
                     <?= form_label('Name', 'name_file', ['for' => 'name_file', 'class' => 'col-sm-2 col-form-label']); ?>
                     <div class="col-sm-10">
                         <?= form_input($name_file); ?>
-                    </div>
-                </div>
-                <div class="form-group row mb-1">
-                    <?= form_label('Number', 'no_arsip', ['for' => 'no_arsip', 'class' => 'col-sm-2 col-form-label']); ?>
-                    <div class="col-sm-10">
-                        <?= form_input($no_arsip); ?>
                     </div>
                 </div>
 
@@ -126,21 +132,9 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
                     </div>
                 </div>
                 <div class="form-group row mb-1">
-                    <?= form_label('Dept', 'id_dept', ['for' => 'id_dept', 'class' => 'col-sm-2 col-form-label']); ?>
-                    <div class="col-sm-10">
-                        <?php foreach ($departement as $row) : ?>
-                            <?php $optionsDept = array_combine(
-                                array_column($departement, 'id_dept'),
-                                array_column($departement, 'name_dept')
-                            ); ?>
-                        <?php endforeach; ?>
-                        <?= form_dropdown($id_dept, $optionsDept); ?>
-                    </div>
-                </div>
-                <div class="form-group row mb-1">
                     <?= form_label('Desc', 'description', ['for' => 'description', 'class' => 'col-sm-2 col-form-label']); ?>
                     <div class="col-sm-10">
-                        <?= form_input($description); ?>
+                        <?= form_textarea($description); ?>
                     </div>
                 </div>
             </div>
@@ -167,12 +161,19 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
                     <?= csrf_field(); ?>
                     <input type="hidden" name="id_arsip" value="<?= $row['id_arsip']; ?>">
                     <input type="hidden" name="oldFile" value="<?= $row['file']; ?>">
+                    <input type="hidden" name="id_dept" value="<?= session()->get('id_dept'); ?>">
+                    <div class="form-group row mb-1">
+                        <label for="no_arsip" class="col-sm-2 col-form-label">Nomor</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="no_arsip" class="form-control" value="<?= $row['no_arsip']; ?>" readonly>
+                        </div>
+                    </div>
                     <div class="form-group row mb-1">
                         <?= form_label('File', 'file', ['class' => 'col-sm-2 col-form-label', 'for' => 'file']); ?>
                         <div class="col-sm-10">
                             <div class="custom-file">
                                 <?= form_upload($file); ?>
-                                <?= form_label('File', 'file', ['class' => 'custom-file-label', 'for' => 'file']); ?>
+                                <?= form_label($row['file'], 'file', ['class' => 'custom-file-label', 'for' => 'file']); ?>
                             </div>
                         </div>
                     </div>
@@ -184,29 +185,16 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
                         </div>
                     </div>
                     <div class="form-group row mb-1">
-                        <?= form_label('Number', 'no_arsip', ['for' => 'no_arsip', 'class' => 'col-sm-2 col-form-label']); ?>
-                        <div class="col-sm-10">
-                            <?php $value = $row['no_arsip']; ?>
-                            <?= form_input($no_arsip, $value); ?>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-1">
                         <?= form_label('Category', 'id_category', ['for' => 'id_category', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-10">
                             <?= form_dropdown($id_category, $optionsCate, '1'); ?>
                         </div>
                     </div>
                     <div class="form-group row mb-1">
-                        <?= form_label('Dept', 'id_dept', ['for' => 'id_dept', 'class' => 'col-sm-2 col-form-label']); ?>
-                        <div class="col-sm-10">
-                            <?= form_dropdown($id_dept, $optionsDept, '1'); ?>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-1">
-                        <?= form_label('description', 'description', ['for' => 'description', 'class' => 'col-sm-2 col-form-label']); ?>
+                        <?= form_label('Desc', 'description', ['for' => 'description', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-10">
                             <?php $value = $row['description']; ?>
-                            <?= form_input($description, $value); ?>
+                            <?= form_textarea($description, $value); ?>
                         </div>
                     </div>
                 </div>
@@ -220,7 +208,7 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
 <?php endforeach; ?>
 
 <?php foreach ($arsip as $row) : ?>
-    <div class="modal fade" id="modalDelete<? $row['id_arsip'];?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalDelete<?= $row['id_arsip']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-light p-2">
@@ -230,11 +218,10 @@ $description = ['name' => 'description', 'id' => 'description', 'class' => 'form
                     </button>
                 </div>
                 <div class="modal-body card-info card-outline">
-                    Are you sure to delete <?= $row['name_file']; ?> ?
+                    Are you sure to delete <b><?= $row['name_file']; ?></b> ?
                 </div>
                 <div class="modal-footer bg-light py-0">
-                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
-                    <a href="/admin/arsip/delete/<?= $row['id_arsip']; ?>" class="btn btn-outline-info"><i class="fa fa-trash mr-2"></i>Delete</a>
+                    <a href="/admin/arsip/delete/<?= $row['id_arsip']; ?>" type="submit" class="btn btn-outline-danger" name="delete"><i class="fa fa-trash mr-2"></i>Delete</a>
                 </div>
             </div>
         </div>

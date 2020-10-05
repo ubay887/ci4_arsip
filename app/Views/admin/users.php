@@ -47,11 +47,11 @@
                                         <td><?= $row['email']; ?></td>
                                         <td>
                                             <?php if ($row['level'] == 1) {
-                                                echo "<span class='badge badge-primary'>Super Admin</span>";
+                                                echo "<span class='badge badge-primary'>Admin</span>";
                                             } else if ($row['level'] == 2) {
-                                                echo "<span class='badge badge-info'>Admin</span>";
+                                                echo "<span class='badge badge-info'>Kabid</span>";
                                             } elseif ($row['level'] == 3) {
-                                                echo "<span class='badge badge-success'>Member</span>";
+                                                echo "<span class='badge badge-success'>Staff</span>";
                                             } ?>
                                         </td>
                                         <td>
@@ -82,7 +82,7 @@ $email = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'for
 $emailView = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'form-control', 'readonly' => ''];
 $password = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control', 'required' => ''];
 $level = ['name' => 'level', 'id' => 'level', 'class' => 'form-control'];
-$op_level = ['3' => 'Member', '2' => 'Admin', '1' => 'Super Admin'];
+$op_level = ['3' => 'Staff', '2' => 'Kabid', '1' => 'Admin'];
 $is_active = ['name' => 'is_active', 'id' => 'is_active', 'class' => 'form-control'];
 $op_active = ['1' => 'Active', '0' => 'In Active'];
 ?>
