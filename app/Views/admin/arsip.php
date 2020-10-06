@@ -122,13 +122,18 @@ $description = ['name' => 'description', 'id' => 'description', 'type' => 'texta
                 <div class="form-group row mb-1">
                     <?= form_label('Category', 'id_category', ['for' => 'id_category', 'class' => 'col-sm-2 col-form-label']); ?>
                     <div class="col-sm-10">
-                        <?php foreach ($category as $row) : ?>
-                            <?php $optionsCate = array_combine(
-                                array_column($category, 'id_category'),
-                                array_column($category, 'name_category')
-                            ); ?>
-                        <?php endforeach; ?>
-                        <?= form_dropdown($id_category, $optionsCate); ?>
+                        <?php if ($category == NULL) { ?>
+                            <?= form_dropdown($id_category); ?>
+                        <?php } ?>
+                        <?php if ($category != NULL) { ?>
+                            <?php foreach ($category as $row) : ?>
+                                <?php $optionsCate = array_combine(
+                                    array_column($category, 'id_category'),
+                                    array_column($category, 'name_category')
+                                ); ?>
+                            <?php endforeach; ?>
+                            <?= form_dropdown($id_category, $optionsCate); ?>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="form-group row mb-1">

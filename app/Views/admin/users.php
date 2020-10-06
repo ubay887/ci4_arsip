@@ -81,7 +81,7 @@ $name_user = ['name' => 'name_user', 'id' => 'name_user', 'class' => 'form-contr
 $email = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'form-control', 'required' => ''];
 $emailView = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'form-control', 'readonly' => ''];
 $password = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control', 'required' => ''];
-$passwordView = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control', 'readonly' => ''];
+$passwordUpdate = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control'];
 $level = ['name' => 'level', 'id' => 'level', 'class' => 'form-control'];
 $op_level = ['3' => 'Staff', '2' => 'Kabid', '1' => 'Admin'];
 $is_active = ['name' => 'is_active', 'id' => 'is_active', 'class' => 'form-control'];
@@ -166,7 +166,7 @@ $op_active = ['1' => 'Active', '0' => 'In Active'];
                     <?= form_open_multipart('/admin/users/update/' . $row['id_user']); ?>
                     <?= csrf_field(); ?>
                     <?= form_hidden('id_user', ''); ?>
-                    <input type="hidden" value="<?= $row['password']; ?>">
+                    <input type="hidden" name="password" id="password" value="<?= $row['password']; ?>">
                     <div class="form-group row">
                         <?= form_label('Image', 'image', ['for' => 'image', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-2">
@@ -197,8 +197,7 @@ $op_active = ['1' => 'Active', '0' => 'In Active'];
                     <div class="form-group row mb-1">
                         <?= form_label('Password', 'password', ['for' => 'password', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-10">
-                            <?php $value = $row['password']; ?>
-                            <?= form_input($passwordView, $value); ?>
+                            <?= form_input($passwordUpdate); ?>
                         </div>
                     </div>
                     <div class="form-group row mb-1">
@@ -237,7 +236,7 @@ $op_active = ['1' => 'Active', '0' => 'In Active'];
                     </button>
                 </div>
                 <div class="modal-body card-info card-outline">
-                    Are you sure to delete <?= $row['name_user']; ?> ?
+                    Are you sure to delete <b> <?= $row['name_user']; ?> </b>?
                 </div>
                 <div class="modal-footer bg-light py-0">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>

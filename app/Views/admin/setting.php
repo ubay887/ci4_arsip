@@ -40,7 +40,7 @@
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Version</strong>
                             <p class="text-muted"><?= $row['version']; ?></p>
                             <hr>
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Url</strong>
+                            <strong><i class="fas fa-globe mr-1"></i> Url</strong>
                             <p class="text-muted">
                                 <?= $row['link_web']; ?>
                             </p>

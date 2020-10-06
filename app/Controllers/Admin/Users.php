@@ -91,10 +91,10 @@ class Users extends BaseController
                 'label' => 'Photo',
                 'rules' => 'max_size[image,1024]|is_image[image]|mime_in[image,image/png,image/jpg,image/jpeg,image/gif]',
             ],
-            'password' => [
-                'label' => 'Password',
-                'rules' => 'required',
-            ],
+            // 'password' => [
+            //     'label' => 'Password',
+            //     'rules' => 'required',
+            // ],
             'level' => [
                 'label' => 'Level',
                 'rules' => 'required',
@@ -107,11 +107,12 @@ class Users extends BaseController
             // Jika valid
             $fileImage = $this->request->getFile('image');
             if ($fileImage->getError() == 4) {
+                $pass = $this->UserModel->getAllData($id);
                 $data = [
                     'id_user' => $id,
                     'name_user' => $this->request->getPost('name_user'),
                     'email' => $this->request->getPost('email'),
-                    'password' => $this->request->getPost('password'),
+                    'password' => $pass['password'],
                     'level' => $this->request->getPost('level'),
                     'is_active' => $this->request->getPost('is_active'),
                 ];
@@ -127,7 +128,7 @@ class Users extends BaseController
                     'id_user' => $id,
                     'name_user' => $this->request->getPost('name_user'),
                     'email' => $this->request->getPost('email'),
-                    'password' => $this->request->getPost('password'),
+                    'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
                     'level' => $this->request->getPost('level'),
                     'is_active' => $this->request->getPost('is_active'),
                     'image' => $nameImage,
@@ -147,14 +148,25 @@ class Users extends BaseController
     public function delete($id)
     {
         $user = $this->UserModel->getAllData($id);
-        if ($user['image'] != 'default.png') {
-            unlink('assets/img/users/' . $user['image']);
+        $count_user = $this->UserModel->getCount();
+        if ($count_user != 1) {
+            if ($user['level'] != 1) {
+                if ($user['image'] != 'default.png') {
+                    unlink('assets/img/users/' . $user['image']);
+                }
+                $this->UserModel->deleteData($id);
+                session()->setFlashdata('message', 'Data has been deleted.');
+                return redirect()->to('/admin/users');
+            }
+            $this->UserModel->deleteData($id);
+            session()->setFlashdata('message', 'Data has been deleted.');
+            return redirect()->to('/admin/users');
+        } else {
+            session()->setFlashdata('error', 'Data tidak bisa dihapus');
+            return redirect()->to('/admin/users');
         }
-
-        $this->UserModel->deleteData($id);
-        session()->setFlashdata('message', 'Data has been deleted.');
-        return redirect()->to('/admin/users');
     }
+
 
     public function excel()
     {
