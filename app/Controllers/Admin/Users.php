@@ -147,7 +147,9 @@ class Users extends BaseController
     public function delete($id)
     {
         $user = $this->UserModel->getAllData($id);
-        unlink('assets/img/users/' . $user['image']);
+        if ($user['image'] != 'default.png') {
+            unlink('assets/img/users/' . $user['image']);
+        }
 
         $this->UserModel->deleteData($id);
         session()->setFlashdata('message', 'Data has been deleted.');
