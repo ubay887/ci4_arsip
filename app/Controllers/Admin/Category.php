@@ -56,7 +56,7 @@ class Category extends BaseController
 
     public function delete($id)
     {
-        $this->model->deleteData($id);
+        $this->CategoryModel->deleteData($id);
         session()->setFlashdata('message', 'Data has been deleted.');
         return redirect()->to('/admin/category');
     }

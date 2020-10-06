@@ -53,9 +53,17 @@
 
         </div>
         <!-- /.content-wrapper -->
+
+        <!-- Percobaan Contoh Fungsi -->
+        <?php function nama()
+        {
+            echo "Aceng Abdul Wahid";
+        }
+        ?>
+
         <footer class="main-footer">
             <strong>Copyright &copy; <?= date('Y'); ?> <a href="<?= $setting['link_web']; ?>"><?= $setting['name_web']; ?></a>.</strong>
-            All rights reserved.
+            All rights reserved | <?= nama(); ?>.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1
             </div>

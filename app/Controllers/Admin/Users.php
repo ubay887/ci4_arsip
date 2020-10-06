@@ -32,7 +32,7 @@ class Users extends BaseController
             ],
             'email' => [
                 'label' => 'Email',
-                'rules' => 'required|is_unique[users.email]',
+                'rules' => 'required|is_unique[tb_user.email]',
             ],
             'image' => [
                 'label' => 'Photo',

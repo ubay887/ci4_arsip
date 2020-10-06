@@ -17,7 +17,7 @@
                         <h3 class="card-title">Table from <?= $title; ?></h3>
 
                         <div class="card-tools">
-                            <button class="btn btn-outline-info btn-sm mb-2 px-3 shadow" title="Add Data" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-user-plus"></i></button>
+                            <button class="btn btn-outline-info btn-sm mb-2 px-3 shadow" title="Add Data" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus"></i></button>
                             <!-- <a href="/admin/arsip/excel" class="btn btn-outline-success btn-sm mb-2 px-3 shadow" title="Export Excel"><i class="fa fa-file-excel"></i></a> -->
                             <button class="btn btn-outline-secondary btn-sm mb-2 px-3 shadow" title="Print" onclick="window.print()"><i class="fa fa-print"></i></button>
                         </div>

@@ -56,7 +56,7 @@ class Departement extends BaseController
 
     public function delete($id)
     {
-        $this->model->deleteData($id);
+        $this->DepartementModel->deleteData($id);
         session()->setFlashdata('message', 'Data has been deleted.');
         return redirect()->to('/admin/departement');
     }

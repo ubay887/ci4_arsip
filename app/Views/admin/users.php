@@ -18,7 +18,7 @@
 
                         <div class="card-tools">
                             <button class="btn btn-outline-info btn-sm mb-2 px-3 shadow" title="Add Data" data-toggle="modal" data-target="#modalAdd"><i class="fa fa-user-plus"></i></button>
-                            <a href="/admin/users/excel" class="btn btn-outline-success btn-sm mb-2 px-3 shadow" title="Export Excel"><i class="fa fa-file-excel"></i></a>
+                            <!-- <a href="/admin/users/excel" class="btn btn-outline-success btn-sm mb-2 px-3 shadow" title="Export Excel"><i class="fa fa-file-excel"></i></a> -->
                             <button class="btn btn-outline-secondary btn-sm mb-2 px-3 shadow" title="Print" onclick="window.print()"><i class="fa fa-print"></i></button>
                         </div>
                     </div>
@@ -81,6 +81,7 @@ $name_user = ['name' => 'name_user', 'id' => 'name_user', 'class' => 'form-contr
 $email = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'form-control', 'required' => ''];
 $emailView = ['name' => 'email', 'id' => 'email', 'type' => 'email', 'class' => 'form-control', 'readonly' => ''];
 $password = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control', 'required' => ''];
+$passwordView = ['name' => 'password', 'id' => 'password', 'type' => 'password', 'class' => 'form-control', 'readonly' => ''];
 $level = ['name' => 'level', 'id' => 'level', 'class' => 'form-control'];
 $op_level = ['3' => 'Staff', '2' => 'Kabid', '1' => 'Admin'];
 $is_active = ['name' => 'is_active', 'id' => 'is_active', 'class' => 'form-control'];
@@ -165,6 +166,7 @@ $op_active = ['1' => 'Active', '0' => 'In Active'];
                     <?= form_open_multipart('/admin/users/update/' . $row['id_user']); ?>
                     <?= csrf_field(); ?>
                     <?= form_hidden('id_user', ''); ?>
+                    <input type="hidden" value="<?= $row['password']; ?>">
                     <div class="form-group row">
                         <?= form_label('Image', 'image', ['for' => 'image', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-2">
@@ -196,7 +198,7 @@ $op_active = ['1' => 'Active', '0' => 'In Active'];
                         <?= form_label('Password', 'password', ['for' => 'password', 'class' => 'col-sm-2 col-form-label']); ?>
                         <div class="col-sm-10">
                             <?php $value = $row['password']; ?>
-                            <?= form_input($password, $value); ?>
+                            <?= form_input($passwordView, $value); ?>
                         </div>
                     </div>
                     <div class="form-group row mb-1">
